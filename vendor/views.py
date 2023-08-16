@@ -50,6 +50,7 @@ class VendorList(viewsets.ModelViewSet):
         vendor_names = request.POST.get('vendor_name')
         address = request.POST.get('address')
         store_name = request.POST.get('store_name')
+        #! 可用地址或名字搜尋
         if vendor_names:
             vendor_names = request.POST.get('vendor_name').split(',')
             query = Q()
@@ -73,6 +74,8 @@ class VendorList(viewsets.ModelViewSet):
             if queryset.exists():
                 serializer = MyModelSerializer(queryset,many=True)
                 return Response(serializer.data,status=status.HTTP_200_OK)
+            result = {"error":"查無此筆資料"}
+            return Response(result,status=status.HTTP_404_NOT_FOUND)
         elif store_name:
             store_names = request.POST.get('store_name').split(',')
             query = Q()

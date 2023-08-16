@@ -58,7 +58,7 @@ class FoodModel(viewsets.ModelViewSet):
             return Response(result,status=status.HTTP_404_NOT_FOUND)
     
     def list(self, request):
-
+        #! 多筆查詢
         food_names = request.POST.get('food_name').split(',')
         queryset_all = Food.objects.all().filter(food_name__in=food_names)
 
@@ -70,7 +70,7 @@ class FoodModel(viewsets.ModelViewSet):
         return Response(result , status=status.HTTP_404_NOT_FOUND)
 
     def update(self,request,*args,**kwargs):
-
+        #! 食物名稱為搜尋條件
         food_name = kwargs.get('pk')
         food_vendor = request.data.get('food_vendor')
         
